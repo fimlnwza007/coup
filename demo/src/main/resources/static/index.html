@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17352c">
+  <title>วงเล่น | บอร์ดเกมออนไลน์</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="วงเล่น หน้าแรก">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+      <span>วงเล่น<span class="brand-period">.</span></span>
+    </a>
+    <div class="topbar-right"><span class="online-dot"></span><span>พื้นที่นัดเล่นของคุณ</span></div>
+  </header>
+
+  <main>
+    <section class="landing view" id="landingView">
+      <div class="landing-main">
+        <div class="intro">
+          <p class="eyebrow"><span>01</span> &nbsp; THE GAME ROOM</p>
+          <h1>รวมตัว<br>แล้วเปิดเกม<span class="heading-dot">.</span></h1>
+          <p class="intro-copy">ไม่ต้องสมัครสมาชิก แค่มีชื่อกับรหัสห้อง<br class="desktop-break">ก็พร้อมเล่นกับเพื่อนได้เลย</p>
+          <div class="intro-foot"><span class="short-line"></span> เลือกเกมแล้วชวนเพื่อนเข้าวง</div>
+        </div>
+
+        <article class="featured-game">
+          <div class="game-photo" role="img" aria-label="บรรยากาศเล่นบอร์ดเกมกับเพื่อน">
+            <div class="photo-shade"></div>
+            <div class="game-number">01 <span>/ 01</span></div>
+            <div class="game-stamp">บลัฟให้เนียน<br>แล้วชิงอำนาจ</div>
+            <div class="role-stack" aria-hidden="true">
+              <span class="mini-card mini-card-back">C</span>
+              <span class="mini-card mini-card-front">♜</span>
+            </div>
+          </div>
+          <div class="game-info">
+            <div>
+              <p class="game-kicker">เกมเปิดวง · เกมแรก</p>
+              <h2>COUP</h2>
+              <p class="game-description">เกมชิงอำนาจที่ทุกคำพูดอาจเป็นเรื่องโกหก</p>
+            </div>
+            <div class="game-meta"><span>2–6 คน</span><b></b><span>15–30 นาที</span></div>
+          </div>
+        </article>
+
+        <div class="coming-soon">
+          <span class="coming-title">เกมในวง</span>
+          <span class="coming-game"><i class="tiny-card tiny-red">A</i> Avalon <small>เร็ว ๆ นี้</small></span>
+          <span class="coming-game"><i class="tiny-card tiny-green">S</i> Skull <small>เร็ว ๆ นี้</small></span>
+          <span class="coming-game"><i class="tiny-card tiny-gold">L</i> Love Letter <small>เร็ว ๆ นี้</small></span>
+        </div>
+      </div>
+
+      <aside class="entry-panel">
+        <div class="entry-heading">
+          <span class="step-label">เริ่มเล่น</span>
+          <span class="entry-index">01 — 02</span>
+        </div>
+        <h2>เข้าวงของคุณ</h2>
+        <p class="entry-copy">ใช้ชื่อเล่นได้เลย ไม่ต้องมีบัญชี</p>
+        <form id="roomForm">
+          <label for="playerName">ชื่อของคุณ</label>
+          <input id="playerName" name="name" maxlength="20" autocomplete="nickname" placeholder="เช่น มะลิ" required>
+          <label for="roomCode">รหัสห้อง <span class="optional">ถ้ามี</span></label>
+          <input id="roomCode" name="code" maxlength="6" autocomplete="off" placeholder="กรอกรหัส 6 ตัว" class="code-input">
+          <p class="form-error" id="formError" role="alert"></p>
+          <button class="button button-primary" type="submit" id="enterButton"><span>เข้าร่วมด้วยรหัส</span><span aria-hidden="true">↗</span></button>
+          <div class="or-divider"><span>หรือ</span></div>
+          <button class="button button-secondary" type="button" id="createButton"><span>＋</span><span>สร้างห้องใหม่</span></button>
+        </form>
+        <div class="privacy-note"><span aria-hidden="true">◈</span> ชื่อของคุณใช้แค่ในห้องนี้เท่านั้น</div>
+      </aside>
+    </section>
+
+    <section class="room-view view hidden" id="roomView" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer"><span>วงเล่น © 2026</span><span>เปิดโต๊ะ · ชวนเพื่อน · เล่นด้วยกัน</span></footer>
+
+  <dialog class="action-dialog" id="actionDialog">
+    <form method="dialog"><button class="dialog-close" aria-label="ปิด">×</button></form>
+    <div id="dialogContent"></div>
+  </dialog>
+</body>
+</html>
