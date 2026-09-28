@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220">
+  <defs>
+    <linearGradient id="duke-bg" x2="1" y2="1"><stop stop-color="#40594a"/><stop offset="1" stop-color="#b48b4e"/></linearGradient>
+    <linearGradient id="assassin-bg" x2="1" y2="1"><stop stop-color="#1c302e"/><stop offset="1" stop-color="#85483c"/></linearGradient>
+    <linearGradient id="captain-bg" x2="1" y2="1"><stop stop-color="#31585b"/><stop offset="1" stop-color="#bb8552"/></linearGradient>
+    <linearGradient id="ambassador-bg" x2="1" y2="1"><stop stop-color="#53684f"/><stop offset="1" stop-color="#c0a061"/></linearGradient>
+    <linearGradient id="contessa-bg" x2="1" y2="1"><stop stop-color="#59413f"/><stop offset="1" stop-color="#bc7965"/></linearGradient>
+    <pattern id="engrave" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 12 0" stroke="#fff4d5" stroke-opacity=".08"/></pattern>
+  </defs>
+  <symbol id="duke" viewBox="0 0 320 220">
+    <rect width="320" height="220" fill="url(#duke-bg)"/><rect width="320" height="220" fill="url(#engrave)"/>
+    <path d="M42 220V82a118 118 0 0 1 236 0v138" fill="#203d32" fill-opacity=".5"/>
+    <path d="M89 220q5-69 48-82h47q44 14 48 82" fill="#263a32"/><path d="m112 220 14-73 34 22 34-22 14 73" fill="#d4b36d"/>
+    <path d="m145 142 15 26 15-26v-25h-30z" fill="#bd815e"/><ellipse cx="160" cy="86" rx="42" ry="51" fill="#dca47a"/>
+    <path d="M118 83q-4-51 43-56 46 2 43 56l-15-24-18-12-47 15z" fill="#3b3028"/>
+    <path d="m116 49 11-26 17 14 17-22 17 22 18-14 10 29-17-9-18 4-18-8-23 12z" fill="#d8bd79" stroke="#f1dda5" stroke-width="3"/>
+    <path d="M139 91h12m19 0h12" stroke="#3c342a" stroke-width="4" stroke-linecap="round"/><path d="M146 116q14 8 28 0" fill="none" stroke="#75473e" stroke-width="3"/>
+    <path d="M144 102q7 5 14 0m5 0q7 5 14 0" stroke="#44352c" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="160" cy="183" r="8" fill="#e2ca8f"/>
+  </symbol>
+  <symbol id="assassin" viewBox="0 0 320 220">
+    <rect width="320" height="220" fill="url(#assassin-bg)"/><rect width="320" height="220" fill="url(#engrave)"/>
+    <path d="M45 220q11-114 65-156 48-39 101 1 48 40 64 155" fill="#172726"/><path d="M81 220q7-81 34-112 21-23 45-25v137" fill="#253b37"/>
+    <path d="M128 63q27-23 59 0l20 55-16 45h-65l-17-45z" fill="#b78263"/><path d="m109 99-13 30 23-8 8-17m78-5 14 28-24-7-8-17" fill="#d0a07b"/>
+    <path d="M116 104h31m27 0h31" stroke="#24322f" stroke-width="11" stroke-linecap="round"/><path d="M152 104h13" stroke="#dab96d" stroke-width="5"/>
+    <path d="M134 139q26 13 52 0l-4 29h-44z" fill="#793d36"/><path d="M139 173 119 220h83l-23-47" fill="#334c43"/>
+    <path d="m61 87 50-48m142 2-36 49" stroke="#d27759" stroke-opacity=".48" stroke-width="3"/>
+    <circle cx="160" cy="105" r="3" fill="#f4d487"/>
+  </symbol>
+  <symbol id="captain" viewBox="0 0 320 220">
+    <rect width="320" height="220" fill="url(#captain-bg)"/><rect width="320" height="220" fill="url(#engrave)"/>
+    <circle cx="268" cy="48" r="32" fill="#e8c980" fill-opacity=".7"/><path d="M0 180q48-29 95 0t95 0 130 1v39H0" fill="#234548" fill-opacity=".68"/>
+    <path d="M61 220q6-72 53-91h91q47 18 54 91" fill="#263e3c"/><path d="m111 220 15-79 34 27 34-27 16 79" fill="#b85d43"/>
+    <path d="M137 143h46v20q-20 19-46 0z" fill="#bc805e"/><ellipse cx="160" cy="90" rx="43" ry="51" fill="#d9a17a"/>
+    <path d="M117 86q0-55 44-57 46 2 44 61l-14-26-17 4-20-18-20 22z" fill="#41342b"/>
+    <path d="M105 54q53-45 109 0l-9 17h-91z" fill="#293c3b" stroke="#d9bd77" stroke-width="4"/><path d="M139 89h13m17 0h13" stroke="#40352e" stroke-width="4" stroke-linecap="round"/>
+    <path d="M135 111q25 14 50 0-2 31-25 34-23-3-25-34" fill="#75483b"/><path d="M146 116h28" stroke="#e0bd83" stroke-width="4"/>
+    <path d="m225 125 30 48-8 5-31-46" fill="#ded0aa"/><path d="m246 174 13-10 9 15-15 9z" fill="#ad614d"/>
+  </symbol>
+  <symbol id="ambassador" viewBox="0 0 320 220">
+    <rect width="320" height="220" fill="url(#ambassador-bg)"/><rect width="320" height="220" fill="url(#engrave)"/>
+    <path d="M37 220q8-81 58-101h130q50 22 58 101" fill="#355144"/><path d="m97 220 22-81 41 31 42-31 22 81" fill="#e1c67f"/>
+    <path d="M142 139h36v22q-18 14-36 0z" fill="#c88969"/><ellipse cx="160" cy="86" rx="40" ry="50" fill="#e0ae87"/>
+    <path d="M120 90q-8-57 40-64 46 4 42 66l-13-23-11-33-35 21-15 32z" fill="#49352e"/><path d="M121 76Q96 105 112 160l21-32-8-36m76-17q26 28 9 87l-22-32 7-39" fill="#49352e"/>
+    <path d="M141 90h12m15 0h12" stroke="#553a31" stroke-width="4" stroke-linecap="round"/><path d="M148 111q12 8 24 0" fill="none" stroke="#a15e54" stroke-width="3"/>
+    <path d="M138 39q22-24 45 0" fill="none" stroke="#e4c875" stroke-width="5"/><circle cx="160" cy="30" r="6" fill="#e7d595"/>
+    <path d="M222 119h42v60h-42z" fill="#e8d9b6" stroke="#a78350" stroke-width="4"/><path d="M232 134h22m-22 12h22m-22 12h16" stroke="#9c8052" stroke-width="3"/>
+  </symbol>
+  <symbol id="contessa" viewBox="0 0 320 220">
+    <rect width="320" height="220" fill="url(#contessa-bg)"/><rect width="320" height="220" fill="url(#engrave)"/>
+    <path d="M54 220q6-75 52-92h108q47 19 53 92" fill="#573d42"/><path d="m99 220 24-82 37 28 38-28 23 82" fill="#bd735f"/>
+    <path d="M143 137h34v22q-18 15-34 0z" fill="#e3b18e"/><ellipse cx="160" cy="84" rx="40" ry="49" fill="#efc4a0"/>
+    <path d="M120 93q-14-76 41-77 57 3 40 81l-10-34-10-21-19 14-24-13-14 23z" fill="#4b302e"/><path d="M122 73Q91 89 112 178l24-33-7-61m70-20q29 32 12 110l-25-32 9-61" fill="#4b302e"/>
+    <path d="M141 88h12m14 0h12" stroke="#664238" stroke-width="4" stroke-linecap="round"/><path d="M149 108q11 7 22 0" fill="none" stroke="#b36c65" stroke-width="3"/>
+    <path d="m132 39 13-20 15 15 15-15 13 20" fill="none" stroke="#e7d08b" stroke-width="4"/><circle cx="160" cy="31" r="5" fill="#f5dda0"/>
+    <path d="m135 141 25 19 25-19-9 48h-32z" fill="#e0c784"/><circle cx="160" cy="170" r="7" fill="#f1dfa6"/>
+  </symbol>
+</svg>

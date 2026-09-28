@@ -12,6 +12,38 @@ const playerId = getPlayerId();
 let room = null;
 let pollTimer = null;
 let pendingAction = null;
+const roles = {
+  Duke: {
+    name: "ดยุก",
+    ability: "เก็บภาษี +3 เหรียญ · ขัดขวาง AID",
+    description: "เก็บภาษีเพื่อรับ 3 เหรียญ หรือขัดขวางคำสั่งขอความช่วยเหลือจากต่างประเทศ",
+    art: "duke"
+  },
+  Assassin: {
+    name: "นักฆ่า",
+    ability: "จ่าย 3 เหรียญเพื่อลอบสังหาร",
+    description: "จ่าย 3 เหรียญเพื่อเลือกผู้เล่นหนึ่งคนให้เสียอิทธิพล 1 ใบ",
+    art: "assassin"
+  },
+  Captain: {
+    name: "กัปตัน",
+    ability: "ขโมยสูงสุด 2 เหรียญ · ขัดขวางขโมย",
+    description: "ขโมยได้สูงสุด 2 เหรียญจากผู้เล่นหนึ่งคน และขัดขวางการขโมยเมื่อคุณเป็นเป้าหมาย",
+    art: "captain"
+  },
+  Ambassador: {
+    name: "ทูต",
+    ability: "แลกไพ่กับสำรับ · ขัดขวางขโมย",
+    description: "จั่ว 2 ใบแล้วเลือกเก็บให้เท่าจำนวนเดิม และขัดขวางการขโมยเมื่อคุณเป็นเป้าหมาย",
+    art: "ambassador"
+  },
+  Contessa: {
+    name: "คอนเตสซา",
+    ability: "ขัดขวางการลอบสังหาร",
+    description: "ขัดขวางการลอบสังหารได้เมื่อคุณเป็นเป้าหมาย",
+    art: "contessa"
+  }
+};
 
 nameInput.value = localStorage.getItem("coup-player-name") || "";
 codeInput.addEventListener("input", () => {
@@ -154,7 +186,6 @@ function renderRoom() {
         </div>
       </aside>
     </div>`;
-
   document.querySelector("#backButton").addEventListener("click", returnToLobby);
   document.querySelector("#copyCode").addEventListener("click", copyRoomCode);
   const startButton = document.querySelector("#startGame");
@@ -176,8 +207,15 @@ function renderLobby(isHost) {
 }
 
 function renderTable(self, isTurn) {
-  const roleNames = { Duke: "ดยุก", Assassin: "นักฆ่า", Captain: "กัปตัน", Ambassador: "ทูต", Contessa: "คอนเตสซา" };
-  const hand = self.cards.map((card) => `<div class="influence-card ${card.alive ? "" : "lost"}"><span class="influence-mark">${card.alive ? "✦" : "×"}</span><span class="influence-role">${escapeHTML(card.role)}</span><span class="influence-caption">${roleNames[card.role] || "อิทธิพล"} · ${card.alive ? "ยังอยู่ในเกม" : "เสียอิทธิพลแล้ว"}</span></div>`).join("");
+  const hand = self.cards.map((card) => {
+    const role = roles[card.role] || { name: "อิทธิพล", ability: "", art: "duke" };
+    return `<article class="influence-card ${card.alive ? "" : "lost"}">
+      <div class="role-portrait role-${card.role.toLowerCase()}">${renderRoleArt(role, `ภาพตัวละคร${role.name}`)}<span class="influence-mark">${card.alive ? "✦" : "×"}</span></div>
+      <div class="influence-title"><span class="influence-role">${escapeHTML(role.name)}</span><span class="influence-role-en">${escapeHTML(card.role)}</span></div>
+      <p class="influence-ability">${escapeHTML(role.ability)}</p>
+      <span class="influence-caption">${card.alive ? "ยังอยู่ในเกม" : "เสียอิทธิพลแล้ว"}</span>
+    </article>`;
+  }).join("");
   if (room.pendingAction) {
     const pending = room.pendingAction;
     const actionNames = { AID: "ขอความช่วยเหลือ", TAX: "เก็บภาษี", STEAL: "ขโมย", ASSASSINATE: "ลอบสังหาร", EXCHANGE: "แลกอิทธิพล" };
@@ -190,7 +228,7 @@ function renderTable(self, isTurn) {
       : `<p class="reaction-wait">รอ ${escapeHTML(room.players.find((player) => player.id === pending.reactionPlayerId)?.name || "ผู้เล่น")} ตอบโต้คำอ้างนี้</p>`;
     return `
       <div class="table-banner"><div><strong>${escapeHTML(pending.claimantName)} อ้างว่าเป็น ${escapeHTML(roleNamesForClaim[pending.claimedRole] || pending.claimedRole)}</strong><br><span>${actionText}${targetText} · ${isResponder ? "เลือกการตอบโต้ของคุณ" : "ทุกคนกำลังจับตาดู"}</span></div><span>สำรับเหลือ ${room.cardsRemaining} ใบ</span></div>
-      <section class="hand-area"><div class="section-heading"><h2>อิทธิพลของคุณ</h2><span>เก็บเป็นความลับจากคนอื่น</span></div><div class="hand-cards">${hand}</div></section>
+      <section class="hand-area"><div class="section-heading"><h2>อิทธิพลของคุณ</h2><span>เก็บเป็นความลับจากคนอื่น</span></div><div class="hand-cards">${hand}</div>${renderRoleGuide()}</section>
       <section class="action-area"><div class="section-heading"><h2>ตอบโต้</h2><span>${isResponder ? "เลือกหนึ่งอย่าง" : "รอผู้เล่นที่ถึงคิว"}</span></div>${responseButtons}</section>`;
   }
   const actions = [
@@ -210,8 +248,20 @@ function renderTable(self, isTurn) {
   }).join("");
   return `
     <div class="table-banner"><div><strong>${room.finished ? "วงนี้จบแล้ว" : isTurn ? "เทิร์นของคุณ" : `ถึงตา ${escapeHTML(room.players.find((p) => p.id === room.currentPlayerId)?.name || "ผู้เล่น")}`}</strong><br><span>${room.finished ? "ดูบันทึกการเล่นด้านข้าง" : isTurn ? "เลือกหนึ่งคำสั่งเพื่อเล่นต่อ" : "เกมจะอัปเดตอัตโนมัติเมื่อมีคนเดิน"}</span></div><span>สำรับเหลือ ${room.cardsRemaining} ใบ</span></div>
-    <section class="hand-area"><div class="section-heading"><h2>อิทธิพลของคุณ</h2><span>เก็บเป็นความลับจากคนอื่น</span></div><div class="hand-cards">${hand}</div></section>
+    <section class="hand-area"><div class="section-heading"><h2>อิทธิพลของคุณ</h2><span>เก็บเป็นความลับจากคนอื่น</span></div><div class="hand-cards">${hand}</div>${renderRoleGuide()}</section>
     <section class="action-area"><div class="section-heading"><h2>เลือกคำสั่ง</h2><span>${isTurn ? "เลือกได้หนึ่งอย่างต่อเทิร์น" : "รอถึงเทิร์นของคุณ"}</span></div><div class="action-grid">${buttons}</div></section>`;
+}
+
+function renderRoleArt(role, label) {
+  return `<svg viewBox="0 0 320 220" role="img" aria-label="${escapeHTML(label)}"><use href="/role-art.svg#${role.art}"></use></svg>`;
+}
+
+function renderRoleGuide() {
+  return `<details class="role-guide"><summary>คู่มือบทบาททั้ง 5 · ดูความสามารถและการขัดขวาง</summary><div class="role-guide-grid">${Object.entries(roles).map(([roleName, role]) => `
+    <article class="role-guide-item">
+      <div class="role-guide-portrait role-${roleName.toLowerCase()}">${renderRoleArt(role, `ภาพตัวละคร${role.name}`)}</div>
+      <div class="role-guide-copy"><strong>${escapeHTML(role.name)} <span>${escapeHTML(roleName)}</span></strong><p>${escapeHTML(role.description)}</p></div>
+    </article>`).join("")}</div></details>`;
 }
 
 function renderPlayer(player, started) {
@@ -254,8 +304,10 @@ function openExchangeDialog() {
   const self = room.players.find((player) => player.id === playerId);
   const selected = new Set();
   const required = self.influences;
-  const roleNames = { Duke: "ดยุก", Assassin: "นักฆ่า", Captain: "กัปตัน", Ambassador: "ทูต", Contessa: "คอนเตสซา" };
-  dialogContent.innerHTML = `<div class="dialog-content"><span class="room-overline">แลกอิทธิพล</span><h2>เลือกเก็บ ${required} ใบ</h2><p>เลือกไพ่ที่ต้องการเก็บ ไพ่ที่เหลือจะกลับไปใต้สำรับ</p><div class="exchange-list">${room.exchangeOptions.map((role, index) => `<button class="exchange-choice" data-index="${index}"><span class="influence-mark">✦</span><strong>${escapeHTML(roleNames[role] || role)}</strong></button>`).join("")}</div><button class="button button-primary dialog-submit" id="confirmExchange" disabled>เลือกให้ครบ ${required} ใบ</button></div>`;
+  dialogContent.innerHTML = `<div class="dialog-content"><span class="room-overline">แลกอิทธิพล</span><h2>เลือกเก็บ ${required} ใบ</h2><p>เลือกไพ่ที่ต้องการเก็บ ไพ่ที่เหลือจะกลับไปใต้สำรับ</p><div class="exchange-list">${room.exchangeOptions.map((roleName, index) => {
+    const role = roles[roleName] || { name: roleName, ability: "", art: "duke" };
+    return `<button class="exchange-choice" data-index="${index}"><span class="exchange-portrait role-${roleName.toLowerCase()}">${renderRoleArt(role, `ภาพตัวละคร${role.name}`)}</span><span class="exchange-role"><strong>${escapeHTML(role.name)}</strong><small>${escapeHTML(role.ability)}</small></span></button>`;
+  }).join("")}</div><button class="button button-primary dialog-submit" id="confirmExchange" disabled>เลือกให้ครบ ${required} ใบ</button></div>`;
   dialogContent.querySelectorAll("[data-index]").forEach((button) => button.addEventListener("click", () => {
     const index = Number(button.dataset.index);
     if (selected.has(index)) selected.delete(index);
